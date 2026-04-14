@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mammut 竞品分析报告 — 预约清洗维修服务</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Mixing a sharp Serif for numbers/accents with a geometric Sans -->
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,400&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            mermaid.initialize({ 
+                startOnLoad: true, 
+                theme: 'base',
+                themeVariables: {
+                    primaryColor: 'transparent',
+                    primaryTextColor: '#0d0d0d',
+                    primaryBorderColor: '#0d0d0d',
+                    lineColor: '#0d0d0d',
+                    secondaryColor: '#E51837',
+                    tertiaryColor: '#f0f0f0',
+                    fontFamily: '"Arimo", "Noto Sans SC", sans-serif'
+                }
+            });
+        });
+    </script>
+    
+    <style>
+        :root {
+            --m-red: #E51837;
+            --m-ink: #0d0d0d;
+            --m-charcoal: #2a2a2a;
+            --m-gray-light: #ececec;
+            --m-paper: #F5F4F0;
+            --m-white: #F5F4F0;
+            
+            --font-sans: 'Arimo', 'Noto Sans SC', system-ui, sans-serif;
+            --font-serif: 'Playfair Display', serif;
+            
+            --grid-gap: 2rem;
+            --section-pad: 8rem;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--m-paper);
+            color: var(--m-ink);
+            line-height: 1.8;
+            font-size: 15px;
+            font-weight: 400;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 4vw;
+        }
+
+        /* --- Global Typography --- */
+        h1, h2, h3, h5, .serif-num {
+            color: var(--m-ink);
+        }
+
+        p {
+            color: var(--m-charcoal);
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        strong, b {
+            font-weight: 700;
+            color: var(--m-ink);
+        }
+
+        /* --- Header / Cover Section --- */
+        .cover {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding-bottom: 5vh;
+            border-bottom: 1px solid var(--m-ink);
+            margin-bottom: var(--section-pad);
+            position: relative;
+        }
+
+        .top-bar {
+            position: absolute;
+            top: 4vw;
+            left: 4vw;
+            right: 4vw;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 700;
+            border-bottom: 2px solid var(--m-ink);
+            padding-bottom: 1rem;
+        }
+
+        .top-bar span.brand {
+            color: var(--m-red);
+        }
+
+        .cover-title {
+            font-size: clamp(3rem, 7vw, 7rem);
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -0.04em;
+            text-transform: uppercase;
+            max-width: 16ch;
+        }
+        
+        .cover-subtitle {
+            font-family: var(--font-serif);
+            font-size: clamp(1.5rem, 3vw, 3rem);
+            font-style: italic;
+            font-weight: 400;
+            color: var(--m-charcoal);
+            margin-top: 1rem;
+        }
+
+        .meta-dossier {
+            margin-top: 5rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            border-top: 1px solid var(--m-gray-light);
+            padding-top: 2rem;
+        }
+
+        @media (max-width: 900px) {
+            .meta-dossier { grid-template-columns: 1fr 1fr; }
+        }
+
+        .meta-dossier div {
+            display: flex;
+            flex-direction: column;
+            font-size: 0.85rem;
+        }
+
+        .meta-dossier .label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--m-charcoal);
+            margin-bottom: 0.5rem;
+        }
+
+        .meta-dossier .val {
+            font-weight: 700;
+        }
+
+        /* --- Section Grid Architecture --- */
+        .editorial-section {
+            display: grid;
+            grid-template-columns: 3fr 9fr;
+            gap: 4vw;
+            margin-bottom: var(--section-pad);
+            border-top: 2px solid var(--m-ink);
+            padding-top: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .editorial-section { grid-template-columns: 1fr; }
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: 900;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .section-header h2 span.num {
+            display: block;
+            font-family: var(--font-serif);
+            font-size: 4rem;
+            color: var(--m-red);
+            font-style: italic;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .section-content h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 4rem 0 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-content h3::before {
+            content: "";
+            display: block;
+            width: 2rem;
+            height: 2px;
+            background: var(--m-red);
+        }
+
+        .section-content h3:first-child {
+            margin-top: 0;
+        }
+
+        /* --- Lists & Blockquotes --- */
+        ul {
+            list-style: none;
+            margin-bottom: 2.5rem;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 1rem;
+            color: var(--m-charcoal);
+        }
+
+        ul li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.6rem;
+            width: 6px;
+            height: 6px;
+            background: var(--m-red);
+            border-radius: 50%;
+        }
+
+        .manifesto-quote {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            line-height: 1.4;
+            color: var(--m-ink);
+            border-left: none;
+            padding: 3rem 0;
+            margin: 3rem 0;
+            text-align: center;
+            position: relative;
+            font-style: italic;
+        }
+
+        .manifesto-quote::before, .manifesto-quote::after {
+            content: "";
+            display: block;
+            width: 40px;
+            height: 1px;
+            background: var(--m-red);
+            margin: 0 auto;
+        }
+        .manifesto-quote::before { margin-bottom: 2rem; }
+        .manifesto-quote::after { margin-top: 2rem; }
+
+        /* --- Technical Cards mimicking a lab dossier --- */
+        .tech-box {
+            background: var(--m-white);
+            border: 1px solid var(--m-gray-light);
+            padding: 2.5rem;
+            margin-bottom: 1rem;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .tech-box { grid-template-columns: 1fr; gap: 1rem; }
+        }
+
+        .tech-box-label {
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--m-red);
+            font-weight: 700;
+        }
+
+        /* --- Pros and Cons Editorial Styling --- */
+        h5 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin: 4rem 0 2rem;
+            border-bottom: 1px solid var(--m-gray-light);
+            padding-bottom: 0.5rem;
+        }
+
+        .adv-disadv-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .adv-disadv-grid { grid-template-columns: 1fr; gap: 2rem; }
+        }
+
+        .ad-col {
+            position: relative;
+        }
+
+        .ad-col-title {
+            font-family: var(--font-sans);
+            font-weight: 900;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .ad-col.pro .ad-col-title { color: var(--m-ink); }
+        .ad-col.con .ad-col-title { color: #888; }
+        
+        .ad-item {
+            margin-bottom: 1.25rem;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px dashed var(--m-gray-light);
+        }
+        
+        .ad-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        /* --- Minimal Tables --- */
+        .editorial-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0 4rem;
+        }
+
+        .editorial-table th {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-align: left;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--m-ink);
+            color: var(--m-ink);
+        }
+
+        .editorial-table td {
+            padding: 2rem 1rem 2rem 0;
+            border-bottom: 1px solid var(--m-gray-light);
+            vertical-align: top;
+        }
+
+        .editorial-table tr:hover td {
+            background-color: var(--m-white);
+        }
+
+        .flow-note {
+            font-size: 0.9rem;
+            font-weight: 500;
+            text-align: center;
+            padding: 1.5rem;
+            border: 1px solid var(--m-gray-light);
+            background: var(--m-white);
+            margin: 2rem 0 4rem;
+            color: var(--m-charcoal);
+        }
+
+        /* --- Images --- */
+        .editorial-image-wrapper {
+            margin: 4rem 0;
+            position: relative;
+        }
+        
+        .editorial-image-wrapper::before {
+            content: "ARCHIVE FIG.";
+            position: absolute;
+            top: -2rem;
+            left: 0;
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            color: var(--m-charcoal);
+        }
+
+        .editorial-image {
+            width: 100%;
+            display: block;
+            filter: grayscale(20%) contrast(1.05); /* Slight editorial filter */
+        }
+
+        /* Mermaid Wrapper */
+        .mermaid {
+            background: var(--m-white);
+            padding: 3rem;
+            border: 1px solid var(--m-gray-light);
+            margin: 2rem 0;
+            font-family: var(--font-sans);
+        }
+
+        /* Footer */
+        .dossier-footer {
+            border-top: 4px solid var(--m-ink);
+            padding: 3rem 4vw;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 10rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <header class="cover">
+        <div class="top-bar">
+            <span>Confidential Document</span>
+            <span class="brand">Mammut Swiss 1862</span>
+        </div>
+        
+        <h1 class="cover-title">Mammut<br>竞品分析报告</h1>
+        <div class="cover-subtitle">预约清洗维修服务</div>
+        
+        <div class="meta-dossier">
+            <div><span class="label">分析日期</span><span class="val">2026-04-10</span></div>
+            <div><span class="label">竞品范围</span><span class="val">Arc'teryx · Canada Goose · Moncler</span></div>
+            <div><span class="label">目标</span><span class="val">对比各个竞品清洗维修的流程体验</span></div>
+            <div>
+                <span class="label">界面截图链接</span>
+                <a href="https://miro.com/app/board/uXjVGsD4qbE=/?share_link_id=147069310179" class="val" style="color:var(--m-red); text-decoration:none;">Miro Board &#8599;</a>
+            </div>
+            <div style="grid-column: 1 / -1; margin-top: 1rem;"><span class="label">TIPS</span><span class="val" style="font-weight:400; font-family:var(--font-serif); font-style:italic; font-size:1.1rem;">可以根据Mammut维修工厂的特殊环节（优势）去设计Special features or flow</span></div>
+        </div>
+    </header>
+
+    <!-- SECTION 1 -->
+    <section class="editorial-section">
+        <div class="section-header">
+            <h2><span class="num">01.</span>Mammut<br>品牌洞察</h2>
+        </div>
+        <div class="section-content">
+            <div class="manifesto-quote">
+                洞察Mammut品牌，基于品牌资产（Brand DNA）、市场竞品环境（Market &amp; Competitor）以及用户行为洞察（Consumer Insight）三个核心维度
+            </div>
+
+            <h3>品牌基因</h3>
+            <p>回溯初心，确保服务理念“长”在猛犸象的基因上，做独属于 Mammut 的服务。</p>
+            <ul>
+                <li><strong>瑞士绳索起家（1862）：</strong>Mammut 的发家史是制造高山攀登绳索。在登山界，绳索是唯一的生命线。因此，“绝对可靠”、“保命级安全”和“瑞士精工（Swiss Engineering）”是其不可磨灭的品牌基石。</li>
+                <li><strong>极限的视觉符号：</strong>经典的黑、红、橙配色（如艾格极限系列 Eiger Extreme），以及代表极寒和史前生存力量的“猛犸象”图腾。</li>
+                <li><strong>装备特质：</strong>软壳鼻祖、重装硬核、立体裁剪。</li>
+            </ul>
+
+            <h3>市场与竞品</h3>
+            <p>避开竞品的内卷锋芒，结合社交趋势找到差异化发力点。</p>
+            <ul>
+                <li><strong>始祖鸟（ReBIRD）：</strong>占据了“环保、重生、艺术感”的高端生活方式生态位。</li>
+                <li><strong>巴塔哥尼亚（Worn Wear）：</strong>占据了“反消费主义、DIY修补、随性文化”的社区生态位。</li>
+                <li><strong>加拿大鹅：</strong>占据了“终身质保、工业流水线、高冷”的冰雪奢品生态位。</li>
+            </ul>
+            
+            <h3 style="font-size: 1.1rem; margin-top:3rem;">当前社媒流行趋势（小红书/抖音）</h3>
+            <ul>
+                <li><strong>“战损风/包浆”与情绪价值：</strong>硬核玩家喜欢秀装备上的补丁，认为“用得烂”比“买得贵”更有含金量（Old Money 的变体：Old Gear）。</li>
+                <li><strong>硬核理工男/装备党的赛博鉴定：</strong>用户喜欢看冲锋衣压胶、DWR 拒水层测试、Gore-Tex 薄膜原理等极度硬核的“修车向”内容。</li>
+            </ul>
+
+            <h3>Mammut 差异化切入点</h3>
+            <p>避开始祖鸟的“艺术感”和鹅的“高冷”，<strong>猛犸象应切入“Tech Lab”与“Experience Honor”的生态位</strong>。</p>
+            
+            <ul>
+                <li><strong>差异化策略：</strong>在维修流程的 UI 展示中，增加“硬核数值”展示。例如在清洗完成后，给出一份类似于体检报告的<strong>《装备性能通过书》</strong>（DWR 拒水性能指数恢复至 95% 等），给足装备党在朋友圈发“赛博体检单”的炫耀资本。用户行为洞察（Consumer Insight）</li>
+                <li><strong>售后服务的概念转化：</strong>对于 Mammut 而言，衣服去返厂不叫“缝补破洞（Repair）”，而应该叫<strong>“性能重置（Reset/Recertify）”</strong>。</li>
+            </ul>
+
+            <div style="margin-top: 4rem;">
+                <div class="tech-box">
+                    <div class="tech-box-label">概念方向 01<br>Swiss Standard 瑞士标准重塑</div>
+                    <div>主张：每一次维修与清洗，都是一次出厂级的“性能标定”。向用户传递：我们不是在洗衣服，我们是在用检验安全绳的瑞士标准，重新唤醒你这件装备的防风防水性能。</div>
+                </div>
+                
+                <div class="tech-box">
+                    <div class="tech-box-label">概念方向 02<br>Mammut Archive 经历归档</div>
+                    <div>主张：户外装备上的磨损不是瑕疵，而是人类挑战自然的“经历”。服务不仅提供修补，更是将这段历史在官方进行“归档”。</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2 -->
+    <section class="editorial-section">
+        <div class="section-header">
+            <h2><span class="num">02.</span>竞品分析<br><span style="font-size:1rem; font-weight:400; color:#888;">预约清洗/维修服务</span></h2>
+        </div>
+        <div class="section-content">
+            <div class="manifesto-quote">
+                从三个层面调研各品牌的维修清洗服务（商业策略 / 功能流程 / 视觉感受）
+            </div>
+
+            <!-- Arc'teryx -->
+            <h3 style="font-size: 2.5rem; margin-top: 0; font-family: var(--font-serif); font-style: italic; color:var(--m-red);">Arc'teryx 始祖鸟</h3>
+
+            <h5>* 商业策略</h5>
+            <div class="adv-disadv-grid">
+                <div class="ad-col pro">
+                    <div class="ad-col-title">[ + ] 优势 ADVANTAGE</div>
+                    <div class="ad-item"><strong>1. 包装独立IP+品牌化体系：</strong> 将传统维修包装成“ReBIRD 重生工坊”，统一品牌叙事（ReCARE™ / ReCUT™ / ReGEAR™），赋予售后服务"品牌溢价"属性，把售后转化为品牌的可持续资产。</div>
+                    <div class="ad-item"><strong>2. 线上线下维修联动：</strong> 设立Rebird维修工坊，支持到店诊断，建立"修装备=逛店"的沉浸体验。</div>
+                    <div class="ad-item"><strong>3. 会员权益绑定：</strong> “会员上门取件免费”增强了高端用户的尊享感与复购粘性。</div>
+                </div>
+                <div class="ad-col con">
+                    <div class="ad-col-title">[ - ] 劣势 DRAWBACK</div>
+                    <div class="ad-item"><strong>1. 缺乏品牌温度：</strong> 仅依赖留言板小助手，无真人专属直连客服，对于高客单价奢侈品属性而言，服务显得冷冰冰。</div>
+                </div>
+            </div>
+
+            <h5>* 功能流程</h5>
+            <div class="mermaid">
+            graph TD
+                A["① 提交申请<br/>从历史购物订单勾选产品"] --> B["② 上传凭证<br/>水洗标 + 重点部位照片 + 破损部位照片"]
+                B --> C["③ 官方评估<br/>详情页查看评估结果与方案"]
+                C --> D["④ 履约交接<br/>预约上门取件（会员免费）/ 到店"]
+                D --> E["⑤ 售后处理<br/>工厂清洗处理（约7个工作日）/ 维修<br/>⚠️ 仅显示'维修中'无细分进度"]
+                E --> F["⑥ 质量检查<br/>出具修前修后效果比对"]
+                F --> G["⑦ 寄回用户"]
+                G --> H["⑧ 用户评价"]
+            </div>
+
+            <div class="flow-note">
+                <strong>关键卡点：</strong> 售后处理期进度展示颗粒度粗（仅有"维修中"）；工单留言板式沟通效率略逊于实时专属客服。
+            </div>
+
+            <div class="adv-disadv-grid">
+                <div class="ad-col pro">
+                    <div class="ad-col-title">[ + ] 流程优势</div>
+                    <div class="ad-item"><strong>1. 选择购物记录(降低报修门槛)：</strong> 支持直接从历史订单中勾选产品(无需手动输入款号) + 明确的照片指引(水洗标/瑕疵细节)，大幅降低填单难度。</div>
+                    <div class="ad-item"><strong>2. 在线评估反馈报价(预期管理)：</strong> 详情页内有评估反馈留言版与在线报价，可直接支付并查看修后效果，提前管理修复预期，减少纠纷。</div>
+                    <div class="ad-item"><strong>3. 上传照片验证(降低沟通成本)：</strong> 支持在线上传水洗标照片 + 重点/破损部位照片，有效降低后续沟通成本。</div>
+                    <div class="ad-item"><strong>4. 一键寄送服务：</strong> 支持"一键上门取件"（会员免费）或到店，用户不用再单独预约收件服务。</div>
+                    <div class="ad-item"><strong>5. 维修记录：</strong> 支持在线查看订单和进度反馈。</div>
+                </div>
+                <div class="ad-col con">
+                    <div class="ad-col-title">[ - ] 流程劣势</div>
+                    <div class="ad-item"><strong>1. 查找困难（缺乏搜索功能）：</strong> 购物记录不支持搜索匹配，老客和拥趸找要修的商品时难如登天。</div>
+                    <div class="ad-item"><strong>2. 留言板沟通效率低：</strong> 得点进留言板沟通，不如微信方便。</div>
+                    <div class="ad-item"><strong>3. 进度焦虑：</strong> 长达数天的履约过程中进度节点巨粗（全程只卡在“维修中”），极易让用户焦虑不安。</div>
+                </div>
+            </div>
+
+            <h5>* 视觉</h5>
+            <div class="adv-disadv-grid">
+                <div class="ad-col pro">
+                    <div class="ad-col-title">[ + ] 视觉优势</div>
+                    <div class="ad-item"><strong>1. 沉浸式高级感：</strong> 报修首页采用清洗作业的动态视频作为背景，瞬间建立原厂工艺的专业信任感。</div>
+                    <div class="ad-item"><strong>2. 层级明确：</strong> 线上线下入口排版清晰，整体延续了品牌冷峻黑蓝的高级视觉基因。</div>
+                </div>
+                <div class="ad-col con">
+                    <div class="ad-col-title">[ - ] 视觉劣势</div>
+                    <div class="ad-item" style="color:#aaa; font-style:italic;">待挖掘</div>
+                </div>
+            </div>
+
+            <div class="editorial-image-wrapper">
+                <img src="./鸟.jpg" alt="Arc'teryx Service Flow" class="editorial-image">
+            </div>
+
+            <!-- Canada Goose -->
+            <h3 style="font-size: 2.5rem; margin-top: 8rem; font-family: var(--font-serif); font-style: italic; color:var(--m-red);">Canada Goose 加拿大鹅</h3>
+
+            <h5>* 商业策略</h5>
+            <div class="adv-disadv-grid">
+                <div class="ad-col pro">
+                    <div class="ad-col-title">[ + ] 优势 ADVANTAGE</div>
+                    <div class="ad-item"><strong>1. 营造品牌专业权威：</strong> 在追踪维修清洗流程中大量使用“入站查验”、“清洗处理站”等术语，打造出“严谨、顶级流水线”的工厂级专业感，而非温情的裁缝铺。</div>
+                    <div class="ad-item"><strong>2. 在线全链路管理：</strong> 中国区通过“Canada Goose加拿大鹅"小程序，实现从申请→审核→寄送→进度追踪→回寄的闭环管理。</div>
+                    <div class="ad-item"><strong>3. 强化“保修承诺”：</strong> 结算单上清晰拆列“免费保修项”和“自费维修项”，用户可以自由选择与组合”保修项"。</div>
+                </div>
+                <div class="ad-col con">
+                    <div class="ad-col-title">[ - ] 劣势 DRAWBACK</div>
+                    <div class="ad-item" style="color:#aaa; font-style:italic;">待挖掘</div>
+                </div>
+            </div>
+
+            <h5>* 功能流程</h5>
+            <div class="mermaid">
+            graph TD
+                A["① 维修报单选项<br/>选择维修或保修大类"] --> B["② 填写账单式表单<br/>细分问题、预填信息、严格拍摄指引"]
+                B --> C["③ 自行安排快递寄送<br/>需手动填入快递单号<br/>⚠️ 缺乏一键取件"]
+                C --> D["④ 实时进度：入仓查验<br/>每个微小节点都有清晰打卡与提示"]
+                D --> E["⑤ 售后方案与混合结算<br/>展示免费保修项+自费维修项明细"]
+                E --> F["⑥ 售后处理<br/>实时追踪：如'商品发生中'"]
+                F --> G["⑦ 回寄到手"]
+            </div>
+
+            <div class="flow-note">
+                <strong>关键体验：</strong> 对内部流程的展演做得极好，用户随时能看到“现在走到哪一步”，进度掌控感极佳；但卡在第一步的寄件上（需自行找快递，未接入一键叫件）。
+            </div>
+
+            <div class="adv-disadv-grid">
+                <div class="ad-col pro">
+                    <div class="ad-col-title">[ + ] 流程优势</div>
+                    <div class="ad-item"><strong>1. 结构化报修分类(降低定损成本)：</strong> 报修大类细分为派克衣服/裤子/配饰，维修项目受损点也可详细勾选（如拉链、盘扣等），大幅降低后端人工定损压力。</div>
+                    <div class="ad-item"><strong>2. 多维照片验证(拦截非正品)：</strong> 要求上传领口商标、洗水标等细节，这本质上是隐性的前置防伪鉴定。</div>
+                    <div class="ad-item"><strong>3. 实时进度反馈(维修过程透明化)：</strong> 提供实时、细分的处理流水线追踪（如显示“商品清洗中”等工厂术语），提升用户的掌控感，缓解等待焦虑。</div>
+                    <div class="ad-item"><strong>4. 维修项组合选择(保修自由度和价值提升)：</strong> 结算单展示极具策略，明确拆分“免费保修项”与“收费维修项”，将账单变成了体现保修价值的证明。</div>
+                </div>
+                <div class="ad-col con">
+                    <div class="ad-col-title">[ - ] 流程劣势</div>
+                    <div class="ad-item"><strong>1. 未打通快递服务：</strong> 高度系统化的整体背后，竟然未打通“一键叫件”物流功能。强行逼迫用户跳出体系自行寄件并回填单号，初期体验极度拉胯。</div>
+                </div>
+            </div>
+
+            <h5>* 视觉</h5>
+            <div class="adv-disadv-grid">
+                <div class="ad-col pro">
+                    <div class="ad-col-title">[ + ] 视觉优势</div>
+                    <div class="ad-item"><strong>1. 契合基因的暗黑机能风：</strong> 后半段进度看板大面积运用黑底与极地岩石实景大图，视觉冷峻炫酷，完美契合极寒装备的品牌心智。</div>
+                    <div class="ad-item"><strong>2. 秩序感绝佳的排版：</strong> 虽然追踪时间线长、结算账单复杂，但 UI 依靠克制的间距与颜色对比，做到了繁而不乱。</div>
+                </div>
+                <div class="ad-col con">
+                    <div class="ad-col-title">[ - ] 视觉劣势</div>
+                    <div class="ad-item"><strong>1. 前后语境割裂：</strong> 初始“长白干涩”的粗糙问卷表单，与下半场的暗黑高级追踪页，在视觉情绪和质感上存在无法忽视的断层。</div>
+                </div>
+            </div>
+
+            <div class="editorial-image-wrapper">
+                <img src="./鹅.jpg" alt="Canada Goose Service Flow" class="editorial-image">
+            </div>
+
+            <!-- Moncler -->
+            <h3 style="font-size: 2.5rem; margin-top: 8rem; font-family: var(--font-serif); font-style: italic; color:var(--m-red);">Moncler 盟可睐（仅参考）</h3>
+
+            <h5>* 商业策略</h5>
+            <table class="editorial-table">
+                <thead>
+                    <tr>
+                        <th style="width: 50px;">NO.</th>
+                        <th>洞察 INSIGHT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>01</td><td><strong>"焕新服务"奢侈品定位</strong> — 将维修包装为"焕新"（Renewal），叠加"精裁"（Tailoring）等增值服务，突出奢侈品的长期陪伴感</td></tr>
+                    <tr><td>02</td><td><strong>Code Moncler 鉴定前置</strong> — 通过产品唯一码验证真伪，将售后服务入口和产品鉴定深度绑定，既是防伪又是数据采集</td></tr>
+                    <tr><td>03</td><td><strong>人工"品牌大使"服务模式</strong> — 不走纯自助化路线，强调客服人员（"品牌大使"）的个性化专属沟通，符合奢侈品高触感服务标准</td></tr>
+                    <tr><td>04</td><td><strong>双触点并行</strong> — 同时运营微信小程序（"盟可睐"）和 moncler.cn 官网表单，但两者体验未完全打通，说明数字化仍在迭代中</td></tr>
+                </tbody>
+            </table>
+
+            <h5>* 功能流程</h5>
+            <div class="mermaid">
+            graph TD
+                A["① Code Moncler 验真<br/>扫描产品码确认正品"] --> B["② 提交售后申请<br/>小程序/官网填写表单<br/>上传产品照片"]
+                B --> C["③ 品牌大使联系<br/>专属客服主动沟通<br/>了解需求细节"]
+                C --> D["④ 远程评估出方案<br/>修复/精裁/保养建议<br/>+ 报价"]
+                D --> E["⑤ 用户确认方案"]
+                E --> F["⑥ 寄送/到店递交产品"]
+                F --> G["⑦ 专业团队处理<br/>焕新/精裁/保养"]
+                G --> H["⑧ 产品归还"]
+            </div>
+
+            <div class="flow-note">
+                <strong>关键特色：</strong> 验真前置 + 人工"品牌大使"全程介入，高触感但效率偏低
+            </div>
+
+            <table class="editorial-table">
+                <thead>
+                    <tr>
+                        <th style="width: 25%">功能 FEATURE</th>
+                        <th>说明 DESCRIPTION</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>在线申请表单</strong></td><td>小程序或官网填写售后申请，描述维修/清洗/精裁需求</td></tr>
+                    <tr><td><strong>照片提交</strong></td><td>申请时上传产品照片（受损部位详情），辅助远程评估</td></tr>
+                    <tr><td><strong>Code Moncler 验真</strong></td><td>售后前可通过专属产品码完成正品鉴定</td></tr>
+                    <tr><td><strong>品牌大使人工跟进</strong></td><td>提交后由专属客服（品牌大使）主动联系，提供方案＋报价</td></tr>
+                </tbody>
+            </table>
+
+        </div>
+    </section>
+
+    <!-- SECTION 3 -->
+    <section class="editorial-section">
+        <div class="section-header">
+            <h2><span class="num">03.</span>Mammut<br>破局落点与产品建议</h2>
+        </div>
+        <div class="section-content">
+            <div class="manifesto-quote">
+                结合 Mammut 独有的“瑞士精工”基因，以及竞品在策略、流程、视觉上的长短板，为 Mammut 清洗维修小程序的打样提炼以下核心可利用点
+            </div>
+
+            <table class="editorial-table">
+                <thead>
+                    <tr>
+                        <th style="width: 20%">体验切面<br>DIMENSION</th>
+                        <th style="width: 35%">核心突破口<br>LEVERAGE POINTS</th>
+                        <th>具体产品功能/机制设计建议<br>FEATURES TO DESIGN</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <strong style="font-size:1.1rem;">商业策略</strong><br>
+                            <span style="font-size:0.75rem; color:#888; text-transform:uppercase;">Strategy</span>
+                        </td>
+                        <td>
+                            <strong style="color:var(--m-red); font-size: 1.1rem; display: block; margin-bottom: 0.5rem; font-family: var(--font-serif); font-style:italic;">从“修补铺”升级为“性能重置室”</strong>
+                            吸取始祖鸟IP化经验，避开大鹅的理赔感，彻底放大 Mammut 的瑞士核心底色。
+                        </td>
+                        <td>
+                            <p style="margin-bottom:1rem;"><strong>1. 重塑服务 IP：</strong> 摒弃“售后维修”，定调为 <strong>Mammut Tech Lab (机能研究室)</strong> 或 <strong>Mammut Archive (经历归档库)</strong>。</p>
+                            <p style="margin-bottom:1rem;"><strong>2. 社交货币（赛博证书）：</strong> 维修完毕不仅是寄衣服，系统还应自动生成一张设计硬核的数字卡片（例：“DWR 拒水指数恢复至 95%”），满足装备党秀“战损”的情绪价值，将售后低成本转化为裂变营销。</p>
+                            <p><strong>3. 隐性防伪：</strong> 借鉴 Moncler 和大鹅，将细致的照片上传与款号库比对作为报修必经流程，低成本完成前置防伪。</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong style="font-size:1.1rem;">功能流程</strong><br>
+                            <span style="font-size:0.75rem; color:#888; text-transform:uppercase;">Flow</span>
+                        </td>
+                        <td>
+                            <strong style="color:var(--m-red); font-size: 1.1rem; display: block; margin-bottom: 0.5rem; font-family: var(--font-serif); font-style:italic;">极致控制感与无缝奢侈品服务</strong>
+                            融合大鹅的颗粒度掌控感与始祖鸟的无缝收发件体验，补齐各自痛点。
+                        </td>
+                        <td>
+                            <p style="margin-bottom:1rem;"><strong>1. 订单快捷调用：</strong> 像始祖鸟一样打通历史订单数据库，支持“一键带出产品属性”，大幅降低填单成本。</p>
+                            <p style="margin-bottom:1rem;"><strong>2. 无缝衔接的服务：</strong> 必须接入微信原生第三方物流“一键上门取件”，绝对不能让用户自己找快递填单号（大鹅最大败笔）。将会员包邮作为核心尊享权益。</p>
+                            <p style="margin-bottom:1rem;"><strong>3. 实时进度展示：</strong> 设计工业级细分进度条（如：入仓除尘 → 压胶修复评估 → 性能复测），而非始祖鸟模糊敷衍的“维修中”。</p>
+                            <p><strong>4. 专属客服人工跟进：</strong> 在适当的时候，让专属客服介入慰问，增加高奢的品牌温度。</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <strong style="font-size:1.1rem;">视觉交互</strong><br>
+                            <span style="font-size:0.75rem; color:#888; text-transform:uppercase;">Visual</span>
+                        </td>
+                        <td>
+                            <strong style="color:var(--m-red); font-size: 1.1rem; display: block; margin-bottom: 0.5rem; font-family: var(--font-serif); font-style:italic;">瑞士工程学与高端暗黑机能的统一</strong>
+                            避免“填卷子”式的焦虑干涩感，全程维持奢侈品的沉浸式高级质感。
+                        </td>
+                        <td>
+                            <p style="margin-bottom:1rem;"><strong>1. 沉浸式硬核视觉：</strong> 首页和关键反馈状态（如检测中）可采用“实景视频循环”或“微动效”背景（如冲浪水滴拍打硬壳、压胶机作业），瞬间建立专业信任与高级冷峻调性。</p>
+                            <p><strong>2. 交互降噪（Step-by-step）：</strong> 不要把多张图片上传和长串文字描述堆在一页。采用卡片翻页式或渐进式的表单收集，让报单更像“向专家咨询”而非“保险理赔填单”。</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+</div>
+
+<footer class="dossier-footer">
+    <div>ARCHIVE // DEPT. STRATEGY</div>
+    <div>MAMMUT SWISS 1862. CONFIDENTIAL.</div>
+</footer>
+
+</body>
+</html>
